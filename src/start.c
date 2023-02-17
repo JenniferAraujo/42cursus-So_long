@@ -6,7 +6,7 @@
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:28:43 by jenny             #+#    #+#             */
-/*   Updated: 2023/02/16 17:54:24 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/17 13:28:56 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,15 @@ static void	move(t_game *game, int col, int line, int pressed_key)
 	if (valid != -1)
 	{
 		game->map[tcol][tline] = '0';
-		game->player_x = col;
 		game->player_y = line;
-		game->map[col][line] = 'P';
+		game->player_x = col;
+		game->map[line][col] = 'P';
 		printf("Movements: %d\n", game->move++);
+		render_img(game);
+		//mlx_put_image_to_window(game->mlx, game->win, game->img.background, tcol*64, tline*64);
+		//mlx_put_image_to_window(game->mlx, game->win, game->img.player, col*64, line*64);
 	}
-	mlx_put_image_to_window(game->mlx, game->win, game->img.background, tcol*64, tline*64);
-	mlx_put_image_to_window(game->mlx, game->win, game->img.player, col*64, line*64);
+	
 }
 
 int	check_key(int keycode, t_game *game)
