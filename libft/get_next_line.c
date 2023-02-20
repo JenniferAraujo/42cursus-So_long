@@ -62,10 +62,6 @@ char	*get_next_line(int fd)
 	if (!s)
 		return (NULL);
 	line = ft_get_line(s);
-	if(s)
-	{
-		printf("resto%s\n", s);
-	}
 	s = ft_new_line(s);
 	return (line);
 }

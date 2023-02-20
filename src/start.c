@@ -6,27 +6,24 @@
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:28:43 by jenny             #+#    #+#             */
-/*   Updated: 2023/02/17 13:28:56 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/20 21:37:27 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	free_img(t_game *game)
+void	free_img(t_game *game)
 {
-	mlx_clear_window(game->mlx, game->win);
-	mlx_loop_end(game->mlx);
-	mlx_destroy_image(game->mlx, game->img.collectible);
-	mlx_destroy_image(game->mlx, game->img.exit);
-	mlx_destroy_image(game->mlx, game->img.background);
-	mlx_destroy_image(game->mlx, game->img.player);
-	mlx_destroy_image(game->mlx, game->img.wall);
-	mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_display(game->mlx);
-	free_map(game);
-	free(game->mlx);
-	exit(3);
-	return (0);
+	if (game->img.exit)
+		mlx_destroy_image(game->mlx, game->img.exit);
+	if (game->img.collectible)
+		mlx_destroy_image(game->mlx, game->img.collectible);
+	if (game->img.player)
+		mlx_destroy_image(game->mlx, game->img.player);
+	if (game->img.floor)
+		mlx_destroy_image(game->mlx, game->img.floor);
+	if (game->img.wall)
+		mlx_destroy_image(game->mlx, game->img.wall);
 }
 
 //transformando o ficheiro .xpm em imagem que pode ser chamada na window
@@ -36,10 +33,11 @@ void	put_images(t_game *game)
 	
 	len = 64;
 	game->img.wall = mlx_xpm_file_to_image(game->mlx, WALL, &len, &len);
-	game->img.player = mlx_xpm_file_to_image(game->mlx, PLAYER, &len, &len);
-	game->img.background = mlx_xpm_file_to_image(game->mlx, BACKGROUND, &len, &len);
+	game->img.player = mlx_xpm_file_to_image(game->mlx, CAT, &len, &len);
+	game->img.floor = mlx_xpm_file_to_image(game->mlx, FLOOR, &len, &len);
 	game->img.exit = mlx_xpm_file_to_image(game->mlx, BOX, &len, &len);
-	game->img.collectible = mlx_xpm_file_to_image(game->mlx, SNACK, &len, &len);
+	game->img.collectible = mlx_xpm_file_to_image(game->mlx, SUSHI, &len, &len);
+	game->img.on_box = mlx_xpm_file_to_image(game->mlx, ON_BOX, &len, &len);
 }
 
 void	ft_char(int x, int y, char c, t_game *game)
@@ -49,7 +47,7 @@ void	ft_char(int x, int y, char c, t_game *game)
 			game->img.wall, x * 64, y * 64);
 	if (c == '0')
 		mlx_put_image_to_window(game->mlx, game->win,
-			game->img.background, x * 64, y * 64);
+			game->img.floor, x * 64, y * 64);
 	if (c == 'P')
 		mlx_put_image_to_window(game->mlx, game->win,
 			game->img.player, x * 64, y * 64);
@@ -59,6 +57,9 @@ void	ft_char(int x, int y, char c, t_game *game)
 	if (c == 'C')
 		mlx_put_image_to_window(game->mlx, game->win,
 			game->img.collectible, x * 64, y * 64);
+	if (c == 'B')
+		mlx_put_image_to_window(game->mlx, game->win,
+			game->img.on_box, x * 64, y * 64);
 }
 
 //coloca na window as imagens no lugar certo
@@ -73,7 +74,6 @@ int	render_img(t_game *game)
 		x = 0;
 		while (x < game->col)
 		{
-			printf("%c\n", game->map[y][x]);
 			ft_char(x, y, game->map[y][x], game);
 			x++;
 		}
@@ -94,29 +94,35 @@ void	get_maps(t_game *game, int fd)
 	while (i < game->line)
 	{
 		c  = get_next_line(fd);
-		printf("output gnl: %s\n", c);
 		game->map[i] = ft_strtrim(c, "\n");
-		printf("Passado malloc: %s\n", game->map[i]);
 		i++;
 		free(c);
 	}
 }
 static int	valid_move(t_game *game, int col, int line, int pressed_key)
 {
+	game->temp = '0';
+	printf("game position = %c \n",game->map[line][col]);
 	if (game->map[line][col] == '1')
 		return (-1);
 	if (game->map[line][col] == 'C')
 		game->score--;
+	if (game->map[line][col] == 'E' && game->score > 0)
+	{
+		ft_printf("O gato na caixa\n");
+		game->player_on_box = 1;
+		game->temp = 'B';
+		return (1);	
+	}
 	if (game->map[line][col] == 'E' && game->score == 0)
 	{
 		game->end_game = 1;
-		game->map[game->player_x][game->player_y] = '0';
 		ft_printf("Movements: %d\n", game->move++);
 		ft_printf("\n\nYOU WIN 🥳🏆\n\n");
-		return (-1);
+		exit (1);
 	}
-	else if (game->map[line][col] == 'E')
-		return (-1);
+	/*else if (game->map[line][col] == 'E')
+		return (-1);*/
 	if (pressed_key != W && pressed_key != S && pressed_key != A
 		&& pressed_key != D)
 		return (-1);
@@ -136,16 +142,19 @@ static void	move(t_game *game, int col, int line, int pressed_key)
 	valid = valid_move(game, col, line, pressed_key);
 	if (valid != -1)
 	{
-		game->map[tcol][tline] = '0';
 		game->player_y = line;
 		game->player_x = col;
-		game->map[line][col] = 'P';
+		if (game->temp != 'B')
+			game->map[line][col] = 'P';
+		else
+			game->map[line][col] = 'B';
+		if (game->map[tcol][tline] != 'B')
+			game->map[tcol][tline] = '0';
+		else
+			game->map[tcol][tline] = 'E';
 		printf("Movements: %d\n", game->move++);
 		render_img(game);
-		//mlx_put_image_to_window(game->mlx, game->win, game->img.background, tcol*64, tline*64);
-		//mlx_put_image_to_window(game->mlx, game->win, game->img.player, col*64, line*64);
 	}
-	
 }
 
 int	check_key(int keycode, t_game *game)
@@ -155,9 +164,6 @@ int	check_key(int keycode, t_game *game)
 
 	col = game->player_x;
 	line = game->player_y;
-	ft_printf ("CENAS\n");
-	ft_printf("Player y: %i\n", game->player_x);
-	ft_printf("PLayer x: %i\n", game->player_y);
 	if (keycode == A)
 		col--;
 	else if (keycode == W)
@@ -167,7 +173,7 @@ int	check_key(int keycode, t_game *game)
 	else if (keycode == D)
 		col++;
 	else if (keycode == ESC)
-		free_img(game);
+		close_window(game);
 	if (game->end_game != 1)
 		move(game, col, line, keycode);
 	return (0);

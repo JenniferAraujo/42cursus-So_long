@@ -6,7 +6,7 @@
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:17:40 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/16 15:46:58 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:25:26 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
-# define PLAYER "./images/player.xpm"
-# define SNACK "./images/collectible.xpm"
-# define BOX "./images/map_exit.xpm"
+# define CAT "./images/cat.xpm"
+# define SUSHI "./images/sushi.xpm"
+# define BOX "./images/exit.xpm"
 # define WALL "./images/wall.xpm"
-# define BACKGROUND "./images/background_game.xpm"
+# define FLOOR "./images/floor.xpm"
+# define ON_BOX "./images/on_box.xpm"
 
 # define W 119
 # define A 97
@@ -36,9 +37,10 @@ typedef struct s_img
 {
 	void	*collectible;
 	void	*player;
-	void	*background;
+	void	*floor;
 	void	*wall;
 	void	*exit;
+	void	*on_box;
 }	t_img;
 
 typedef struct s_game
@@ -47,11 +49,13 @@ typedef struct s_game
 	void	*mlx;
 	void	*win;
 	char	**map;
+	char	temp;
 	int		line;
 	int		col;
 	int		exit;
 	int		score;
 	int		player;
+	int		player_on_box;
 	int		player_y;
 	int		player_x;
 	int		end_game;
@@ -69,8 +73,10 @@ int	get_col_size(int fd);
 int	render_img(t_game *game);
 int		check_key(int x, t_game *game);
 void	free_map(t_game *game);
-int	free_img(t_game *game);
+void	free_img(t_game *game);
 void	player_position(t_game *game);
 void	ft_exit(char *s, t_game *game);
+int	close_window(t_game *game);
+void	print_map(t_game *game);
 
 #endif

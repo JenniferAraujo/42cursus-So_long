@@ -6,7 +6,7 @@
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:57 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/14 20:13:55 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:21:26 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,10 @@ void	free_map(t_game *game)
 		i++;
 	}
 	free(game->map);
+}
+
+int	close_window(t_game *game)
+{
+	free_img(game);
+	exit (1);
 }

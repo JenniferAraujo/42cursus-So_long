@@ -6,7 +6,7 @@
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:53:23 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/16 16:28:58 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:40:35 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	ft_check_char(t_game *game, char c, int line, int col)
 	else if (c == '1' || c == '0')
 		return ;
 	else
-		ft_exit("Error\nJust thecharacters: \"1\"\n" "0\"\n" "C\"\n" "E\"\n" "P\"\n", game);
+		ft_exit("Error\nJust the characters: \"1\"\n" "0\"\n" "C\"\n" "E\"\n" "P\"\n", game);
 }
 		
 void	ft_check_map(t_game *game)

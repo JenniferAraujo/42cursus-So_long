@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:43:55 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/18 09:18:10 by jenny            ###   ########.fr       */
+/*   Updated: 2023/02/20 19:02:49 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+void	print_map(t_game *game)
+{
+		ft_printf("\n%s\n",game->map[0]);
+		ft_printf("%s\n",game->map[1]);
+		ft_printf("%s\n",game->map[2]);
+		ft_printf("%s\n",game->map[3]);
+		ft_printf("%s\n\n",game->map[4]);
+}
 
 int	snack_counter(t_game *game)
 {
@@ -46,7 +55,8 @@ static void	start_map(t_game *game)
 	game->line = 0;
 	game->col = 0;
 	game->end_game = 0;
-	game->move = 0;
+	game->move = 1;
+	//game->player_on_box = 0; 
 }
 
 void	player_position(t_game *game)
@@ -109,7 +119,7 @@ int main(int ac, char **av)
 		player_position(&game);
 		printf("game score %d \n", game.score);
 		mlx_hook(game.win,02,1L,check_key,&game);
-		mlx_hook(game.win,17, 1L << 17,free_img,&game);
+		mlx_hook(game.win,17, 1L << 17,close_window,&game);
 		//printf ("Checka essa merda\n");
 		//ft_printf("%s\n",game.map[0]);
 		//ft_printf("%s\n",game.map[1]);
