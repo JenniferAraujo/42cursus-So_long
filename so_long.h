@@ -6,7 +6,7 @@
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:17:40 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/20 19:25:26 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:40:57 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_game
 	void	*mlx;
 	void	*win;
 	char	**map;
+	char	**map_floodfill;
 	char	temp;
 	int		line;
 	int		col;
@@ -62,21 +63,22 @@ typedef struct s_game
 	int		move;
 }	t_game;
 
-
+void 	check_args(t_game *game, int argc, char ** argv);
+void	check_map(t_game *game);
+void	start_validations(t_game *game);
+int		key_handler(int x, t_game *game);
+void	valid_map(t_game *game);
 void	get_maps(t_game *game, int fd);
-void check_args(int argc, char **argv);
-void	ft_check_map(t_game *game);
-void	ft_valid_map(t_game *game);
 void	put_images(t_game *game);
-int	get_line_size(int fd);
-int	get_col_size(int fd);
-int	render_img(t_game *game);
-int		check_key(int x, t_game *game);
+void	put_map(int x, int y, char c, t_game *game);
+int		get_col_size(t_game *game, int fd);
+int 	get_line_size(int fd);
+int		render_img(t_game *game);
+int		collectible_counter(t_game *game);
+void	player_position(t_game *game);
 void	free_map(t_game *game);
 void	free_img(t_game *game);
-void	player_position(t_game *game);
 void	ft_exit(char *s, t_game *game);
-int	close_window(t_game *game);
-void	print_map(t_game *game);
+int		close_window(t_game *game);
 
 #endif

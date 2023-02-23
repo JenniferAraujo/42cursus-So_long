@@ -1,58 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maps.c                                             :+:      :+:    :+:   */
+/*   map_treatment.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 17:28:37 by jenny             #+#    #+#             */
-/*   Updated: 2023/02/23 18:54:19 by jede-ara         ###   ########.fr       */
+/*   Created: 2023/02/22 21:02:04 by jede-ara          #+#    #+#             */
+/*   Updated: 2023/02/23 13:13:38 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	get_col_size(t_game *game, int fd)
+void	get_maps(t_game *game, int fd)
 {
+	int	i;
 	char	*c;
-	int		y;
-	int		temp;
+	int y;
 
-	c = get_next_line(fd);
-	y = ft_strlen(c)-1;
-	temp = y;
-	free(c);
-	if (fd < 0)
+	i = 0;
+	y = game->line + 1;
+	game->map = (char **)malloc(sizeof(char *) * y);
+	if (!game->map)
 		ft_exit("ERROR\n", game);
-	/*if (temp < 0)
-		ft_exit("ERROR\n", game);
-	}*/
-	while (1) 
+	while (i < y)
 	{
-		c = get_next_line(fd);
-		if (!c)
-			break ;
-		y = ft_strlen(c)-1;
-		if (temp != y)
-			return (-1);
+		c  = get_next_line(fd);
+		game->map[i] = ft_strtrim(c, "\n");
+		i++;
 		free(c);
 	}
-	return y;
 }
-
-int	get_line_size(int fd)
-{
-	char	*c;
-	int	x;
-	x = 0;
-	while (1)
-	{
-		c = get_next_line(fd);
-		if (!c)
-			break ;
-		x++;
-		free(c);
-	}
-	return x;
-}
-

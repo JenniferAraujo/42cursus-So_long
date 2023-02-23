@@ -6,23 +6,23 @@
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:53:23 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/20 15:40:35 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:51:09 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void check_args(int	argc, char ** argv)
+void	check_args(t_game *game, int argc, char **argv)
 {
 	if (argc != 2)
 	{
 		ft_printf("Error\ninvalid number of argument\n");
-		exit(0);
+		ft_exit("ERROR\n", game);
 	}
 	if (ft_strncmp(ft_strrchr(argv[1], '.'), ".ber", 4) != 0)
 	{
 		ft_printf("Error\nfile must be of type \".ber\"\n");
-		exit(0);
+		ft_exit("ERROR\n", game);
 	}
 }
 
@@ -47,7 +47,7 @@ static void	ft_walls(t_game *game)
 	}
 }
 
-void	ft_valid_map(t_game *game)
+void	valid_map(t_game *game)
 {
 	int	col;
 	int	line;
@@ -66,7 +66,7 @@ void	ft_valid_map(t_game *game)
 	ft_walls(game);
 }
 
-static void	ft_check_char(t_game *game, char c, int line, int col)
+static void	check_char(t_game *game, char c, int line, int col)
 {
 	if (c == 'C')
 		game->score++;
@@ -81,10 +81,10 @@ static void	ft_check_char(t_game *game, char c, int line, int col)
 	else if (c == '1' || c == '0')
 		return ;
 	else
-		ft_exit("Error\nJust the characters: \"1\"\n" "0\"\n" "C\"\n" "E\"\n" "P\"\n", game);
+		ft_exit("Error\nInvalid characters", game);
 }
-		
-void	ft_check_map(t_game *game)
+
+void	check_map(t_game *game)
 {
 	int	line;
 	int	col;
@@ -95,13 +95,13 @@ void	ft_check_map(t_game *game)
 		col = 0;
 		while (game->map[line][col])
 		{
-			ft_check_char(game, game->map[line][col], line, col);
+			check_char(game, game->map[line][col], line, col);
 			col++;
 		}
 		line++;
 	}
 	if (game->score == 0)
-		ft_exit("Error\nThere's no snacks", game);
+		ft_exit("Error\nThere's no sushi", game);
 	else if (game->exit == 0)
 		ft_exit("Error\nThere's no box", game);
 	else if (game->exit > 1)
