@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:17:40 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/23 18:40:57 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:24:26 by jenny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <stdbool.h>
+
 
 # define CAT "./images/cat.xpm"
 # define SUSHI "./images/sushi.xpm"
@@ -65,6 +67,7 @@ typedef struct s_game
 
 void 	check_args(t_game *game, int argc, char ** argv);
 void	check_map(t_game *game);
+//void	check_path(t_game *game);
 void	start_validations(t_game *game);
 int		key_handler(int x, t_game *game);
 void	valid_map(t_game *game);

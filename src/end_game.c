@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:57 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/23 17:47:12 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:00:00 by jenny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	free_img(t_game *game)
 
 void	ft_exit(char *s, t_game *game)
 {
-	ft_printf("Error\n%s\n\n", s);
+	ft_printf("Error\n%s\n", s);
 	free_map(game);
 	exit(0);
 }

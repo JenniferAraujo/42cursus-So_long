@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:43:55 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/23 17:54:49 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:18:46 by jenny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	main(int argc, char **argv)
 	fd_x = open(argv[1], O_RDONLY);
 	fd_y = open(argv[1], O_RDONLY);
 	check_args(&game, argc, argv);
-	//start_validations(&game);
 	start_map(&game);
+	//start_validations(&game);
 	game.col = get_col_size(&game, fd_x);
 	game.line = get_line_size(fd_y);
 	if (game.col == -1)

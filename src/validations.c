@@ -3,87 +3,84 @@
 /*                                                        :::      ::::::::   */
 /*   validations.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:30:44 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/23 19:01:37 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:05:12 by jenny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-/*void	map_malloc_path(t_game	*game, int fd)
+void	map_malloc_path(t_game *game, int fd)
 {
-	int		i;
-	char	*out;
-	int		y;
+	int	i;
+	char	*c;
+	int y;
 
-	y = game->line + 1;
 	i = 0;
-	open_map(game);
+	y = game->line + 1;
 	game->map_floodfill = (char **)malloc(sizeof(char *) * y);
 	if (!game->map_floodfill)
 		free_img(game);
 	while (i < y)
 	{
-		out = get_next_line(game->map_fd);
-		game->map_floodfill[i] = ft_strtrim(out, "\n");
-		free(out);
+		c  = get_next_line(fd);
+		game->map_floodfill[i] = ft_strtrim(c, "\n");
 		i++;
+		free(c);
 	}
-	game->array_flood = true;
-	close_map(game);
 }
 
-bool	fill(t_game *game, char begin, int row, int col)
+bool	fill(t_game *game, char b, int line, int col)
 {
 	static bool		exit = false;
 	static int		cols = 0;
 
-	if (row < 0 || col < 0 || row >= game->line || col >= game->col)
+	if (line < 0 || col < 0 || line >= game->line || col >= game->col)
 		return (false);
-	else if (game->map_floodfill[row][col] == 'J')
+	else if (game->map_floodfill[line][col] == 'J')
 		return (false);
-	else if (game->map_floodfill[row][col] == '1')
+	else if (game->map_floodfill[line][col] == '1')
 		return (false);
-	else if (game->map_floodfill[row][col] == 'E')
+	else if (game->map_floodfill[line][col] == 'E')
 		exit = true;
-	if (game->map_floodfill[row][col] == 'C')
+	if (game->map_floodfill[line][col] == 'C')
 		cols++;
-	game->map_floodfill[row][col] = 'J';
-	fill(game, begin, row + 1, col);
-	fill(game, begin, row, col + 1);
-	fill(game, begin, row - 1, col);
-	fill(game, begin, row, col - 1);
+	game->map_floodfill[line][col] = 'J';
+	fill(game, b, line + 1, col);
+	fill(game, b, line, col + 1);
+	fill(game, b, line - 1, col);
+	fill(game, b, line, col - 1);
 	return (cols == game->score && exit);
 }
 
 int	floodfill(t_game *game)
 {
-	char	begin;
-	int		row;
+	char	b;
+	int		line;
 	int		col;
 	bool	valid;
 
-	begin = game->map_floodfill[game->player_y][game->player_x];
-	row = game->player_y;
+	b = game->map_floodfill[game->player_y][game->player_x];
+	line = game->player_y;
 	col = game->player_x;
-	valid = fill(game, begin, row, col);
+	valid = fill(game, b, line, col);
 	return (valid);
 }
 
-void	check_path(t_game *game)
+void	valid_path(t_game *game)
 {
 	int	i;
 	int	j;
 
 	j = 0;
 	i = 0;
-	map_malloc_path(game);
+	map_malloc_path(game, 1);
 	if (!floodfill(game))
-		send_error("✗ Invalid path on the map\n", game);
+		ft_exit("Invalid path on the map\n", game);
 	else
-		ft_printf ("✔ Valid path to on the map\n");
+		ft_printf ("Valid path to on the map\n");
 	while (i < game->line)
 	{
 		j = 0;
@@ -95,11 +92,12 @@ void	check_path(t_game *game)
 		i++;
 		ft_printf("\n");
 	}
-}*/
+}
 
 void start_validations(t_game *game)
 {
     ft_printf("Init validations...\n");
-    valid_map(game);
     check_map(game);
+	valid_map(game);
+	valid_path(game);
 }

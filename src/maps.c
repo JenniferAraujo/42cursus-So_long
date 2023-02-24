@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:28:37 by jenny             #+#    #+#             */
-/*   Updated: 2023/02/23 18:54:19 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:59:21 by jenny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ int	get_col_size(t_game *game, int fd)
 	temp = y;
 	free(c);
 	if (fd < 0)
-		ft_exit("ERROR\n", game);
-	/*if (temp < 0)
-		ft_exit("ERROR\n", game);
-	}*/
+		ft_exit("Error\n", game);
 	while (1) 
 	{
 		c = get_next_line(fd);
