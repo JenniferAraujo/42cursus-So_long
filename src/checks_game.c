@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks_game.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:53:23 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/24 15:59:40 by jenny            ###   ########.fr       */
+/*   Updated: 2023/02/24 20:38:26 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,9 @@
 void	check_args(t_game *game, int argc, char **argv)
 {
 	if (argc != 2)
-	{
-		ft_printf("Invalid number of argument\n");
-		ft_exit("", game);
-	}
+		ft_exit("Invalid number of argument\n", game);
 	if (ft_strncmp(ft_strrchr(argv[1], '.'), ".ber", 4) != 0)
-	{
-		ft_printf("File must be of type \".ber\"\n");
-		ft_exit("", game);
-	}
+		ft_exit("File must be of type \".ber\"\n", game);
 }
 
 static void	ft_walls(t_game *game)
@@ -60,7 +54,7 @@ void	valid_map(t_game *game)
 	{
 		col = ft_strlen(game->map[line]);
 		if (col != size)
-			ft_exit("Your map is not rectangular!", game);
+			ft_exit("Your map is not rectangular", game);
 		line++;
 	}
 	ft_walls(game);

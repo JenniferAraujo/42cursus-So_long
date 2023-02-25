@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:43:55 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/24 16:18:46 by jenny            ###   ########.fr       */
+/*   Updated: 2023/02/24 23:19:36 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,25 @@ int	main(int argc, char **argv)
 	int		fd;
 	int		fd_x;
 	int		fd_y;
+	int		fd_map;
 
 	fd_x = open(argv[1], O_RDONLY);
 	fd_y = open(argv[1], O_RDONLY);
+	fd_map = open(argv[1], O_RDONLY);
 	check_args(&game, argc, argv);
 	start_map(&game);
-	//start_validations(&game);
 	game.col = get_col_size(&game, fd_x);
 	game.line = get_line_size(fd_y);
+	fd = open(argv[1], O_RDONLY);
+	get_maps(&game, fd);
+	start_validations(&game, fd_map);
+	game.score = collectible_counter(&game);
 	if (game.col == -1)
 		ft_exit("ERROR\n", &game);
 	close(fd_x);
 	close(fd_y);
-	fd = open(argv[1], O_RDONLY);
-	get_maps(&game, fd);
-	game.score = collectible_counter(&game);
-	player_position(&game);
 	close(fd);
+	close(fd_map);
+	player_position(&game);
 	start_game(&game);
 }
