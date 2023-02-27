@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maps.c                                             :+:      :+:    :+:   */
+/*   get_size_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:28:37 by jenny             #+#    #+#             */
-/*   Updated: 2023/02/24 20:08:35 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:55:27 by jenny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	get_col_size(t_game *game, int fd)
 	temp = y;
 	free(c);
 	if (fd < 0)
-		ft_exit("Error\n", game);
+		ft_exit("Error fd empty\n", game);
 	while (1) 
 	{
 		c = get_next_line(fd);

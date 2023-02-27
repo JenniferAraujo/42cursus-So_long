@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+         #
+#    By: jenny <jenny@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 15:52:31 by jede-ara          #+#    #+#              #
-#    Updated: 2023/02/23 13:42:05 by jede-ara         ###   ########.fr        #
+#    Updated: 2023/02/27 16:08:19 by jenny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,15 +18,16 @@ LIBFT = ./libft/libft.a
 LIBFTDIR = ./libft
 MINILIBX_PATH	=	./minilibx
 MINILIBX		=	$(MINILIBX_PATH)/libmlx.a
-SRC = src/checks_game.c \
+SRC = src/game_validations.c \
 		src/render_img.c \
-		src/maps.c \
+		src/get_size_map.c \
 		src/main.c \
 		src/end_game.c \
 		src/init_map.c \
 		src/game_moves.c \
-		src/map_treatment.c \
-		src/validations.c
+		src/get_maps.c \
+		src/start_validations.c \
+		src/path_validation.c
 
 OBJ = $(SRC:%.c=%.o)
 # ==================================================================================== 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:17:40 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/24 21:38:33 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:42:17 by jenny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_game
 
 void 	check_args(t_game *game, int argc, char ** argv);
 void	check_map(t_game *game);
-//void	check_path(t_game *game);
+void	valid_path(t_game *game, int fd);
 void	start_validations(t_game *game, int fd);
 int		key_handler(int x, t_game *game);
 void	valid_map(t_game *game);

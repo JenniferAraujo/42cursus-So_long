@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:43:55 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/24 23:19:36 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:37:17 by jenny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static void	start_map(t_game *game)
 {
 	game->player_x = 0;
 	game->player_y = 0;
+	game->player_on_box = 0;
 	game->exit = 0;
 	game->player = 0;
 	game->line = 0;
 	game->col = 0;
 	game->end_game = 0;
 	game->move = 1;
-	game->player_on_box = 0;
 }
 
 void	start_game(t_game *game)
@@ -50,12 +50,12 @@ int	main(int argc, char **argv)
 	fd_map = open(argv[1], O_RDONLY);
 	check_args(&game, argc, argv);
 	start_map(&game);
+	game.score = collectible_counter(&game);
 	game.col = get_col_size(&game, fd_x);
 	game.line = get_line_size(fd_y);
 	fd = open(argv[1], O_RDONLY);
 	get_maps(&game, fd);
 	start_validations(&game, fd_map);
-	game.score = collectible_counter(&game);
 	if (game.col == -1)
 		ft_exit("ERROR\n", &game);
 	close(fd_x);
