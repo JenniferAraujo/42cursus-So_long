@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   floodfill.c                                        :+:      :+:    :+:   */
+/*   path_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:49:41 by jenny             #+#    #+#             */
-/*   Updated: 2023/02/27 15:52:41 by jenny            ###   ########.fr       */
+/*   Updated: 2023/03/01 19:41:27 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,15 @@ void	valid_path(t_game *game, int fd)
 	i = 0;
 	map_malloc_path(game, fd);
 	if (!floodfill(game))
-		ft_printf ("Invalid path to on the map\n");
+	{
+		ft_printf ("Error\nInvalid path to on the map\n");
+		free_img(game);
+		close(fd);
+	}
 	else
-		ft_printf ("Valid path to on the map\n");
+	{
+		ft_printf ("Error\nValid path to on the map\n");
+	}	
 	while (i < game->line)
 	{
 		j = 0;

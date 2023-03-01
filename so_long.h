@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:17:40 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/27 15:42:17 by jenny            ###   ########.fr       */
+/*   Updated: 2023/03/01 19:53:13 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <string.h>
 
 
 # define CAT "./images/cat.xpm"
@@ -75,11 +76,12 @@ void	get_maps(t_game *game, int fd);
 void	put_images(t_game *game);
 void	put_map(int x, int y, char c, t_game *game);
 int		get_col_size(t_game *game, int fd);
-int 	get_line_size(int fd);
+int		get_line_size(t_game *game, int fd);
 int		render_img(t_game *game);
 int		collectible_counter(t_game *game);
 void	player_position(t_game *game);
 void	free_map(t_game *game);
+void	free_map_floodfill(t_game *game);
 void	free_img(t_game *game);
 void	ft_exit(char *s, t_game *game);
 int		close_window(t_game *game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_size_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:28:37 by jenny             #+#    #+#             */
-/*   Updated: 2023/02/27 15:55:27 by jenny            ###   ########.fr       */
+/*   Updated: 2023/03/01 18:30:15 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ int	get_col_size(t_game *game, int fd)
 {
 	char	*c;
 	int		y;
-	int		temp;
-
+	//int		temp;
+	
+	(void)game;
 	c = get_next_line(fd);
 	y = ft_strlen(c)-1;
-	temp = y;
-	free(c);
+	//temp = y;
+	free(c);/*
 	if (fd < 0)
 		ft_exit("Error fd empty\n", game);
 	while (1) 
@@ -33,15 +34,17 @@ int	get_col_size(t_game *game, int fd)
 		if (temp != y)
 			return (-1);
 		free(c);
-	}
+	}*/
 	return y;
 }
 
-int	get_line_size(int fd)
+int	get_line_size(t_game *game, int fd)
 {
 	char	*c;
 	int	x;
+	
 	x = 0;
+	(void)game;
 	while (1)
 	{
 		c = get_next_line(fd);
@@ -49,6 +52,11 @@ int	get_line_size(int fd)
 			break ;
 		x++;
 		free(c);
+	}
+	if (x == 0)
+	{	
+		ft_printf("Error\nThe file is empty or not exist.");
+		exit(0);
 	}
 	return x;
 }

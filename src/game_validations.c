@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_validations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:53:23 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/27 13:46:38 by jenny            ###   ########.fr       */
+/*   Updated: 2023/03/01 20:07:01 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 void	check_args(t_game *game, int argc, char **argv)
 {
 	if (argc != 2)
-		ft_exit("Invalid number of argument\n", game);
-	if (ft_strncmp(ft_strrchr(argv[1], '.'), ".ber", 4) != 0)
-		ft_exit("File must be of type \".ber\"\n", game);
+		ft_exit("Error\nInvalid number of argument\n", game);
+	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) -4, ".ber", 4))
+	{
+		ft_printf("Error\nFile must be of type \".ber\"\n");
+		exit(0);			
+	}
 }
 
 static void	ft_walls(t_game *game)
@@ -32,9 +35,9 @@ static void	ft_walls(t_game *game)
 		while (game->map[i][c])
 		{
 			if (game->map[0][c] != '1' || game->map[game->line - 1][c] != '1')
-				ft_exit("The map is not surrounded by walls", game);
+				ft_exit("Error\nThe map is not surrounded by walls", game);
 			if (game->map[i][0] != '1' || game->map[i][game->col - 1] != '1')
-				ft_exit("The map is not surrounded by walls", game);
+				ft_exit("Error\nThe map is not surrounded by walls", game);
 			c++;
 		}
 		i++;
@@ -54,7 +57,7 @@ void	valid_map(t_game *game)
 	{
 		col = ft_strlen(game->map[line]);
 		if (col != size)
-			ft_exit("Your map is not rectangular", game);
+			ft_exit("Error\nYour map is not rectangular", game);
 		line++;
 	}
 	ft_walls(game);
@@ -75,7 +78,7 @@ static void	check_char(t_game *game, char c, int line, int col)
 	else if (c == '1' || c == '0')
 		return ;
 	else
-		ft_exit("Invalid characters", game);
+		ft_exit("Error\nInvalid characters", game);
 }
 
 void	check_map(t_game *game)
@@ -95,13 +98,13 @@ void	check_map(t_game *game)
 		line++;
 	}
 	if (game->score == 0)
-		ft_exit("There's no sushi", game);
+		ft_exit("Error\nThere's no sushi", game);
 	else if (game->exit == 0)
-		ft_exit("There's no box", game);
+		ft_exit("Error\nThere's no box", game);
 	else if (game->exit > 1)
-		ft_exit("Only one box per map", game);
+		ft_exit("Error\nOnly one box per map", game);
 	else if (game->player == 0)
-		ft_exit("There's no Mya", game);
+		ft_exit("Error\nThere's no Mya", game);
 	else if (game->player > 1)
-		ft_exit("Only one Mya per map", game);
+		ft_exit("Error\nOnly one Mya per map", game);
 }

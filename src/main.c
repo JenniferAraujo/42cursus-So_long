@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jenny <jenny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:43:55 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/27 15:37:17 by jenny            ###   ########.fr       */
+/*   Updated: 2023/03/01 18:29:24 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ int	main(int argc, char **argv)
 	check_args(&game, argc, argv);
 	start_map(&game);
 	game.score = collectible_counter(&game);
+	game.line = get_line_size(&game, fd_y);
 	game.col = get_col_size(&game, fd_x);
-	game.line = get_line_size(fd_y);
 	fd = open(argv[1], O_RDONLY);
 	get_maps(&game, fd);
 	start_validations(&game, fd_map);
 	if (game.col == -1)
-		ft_exit("ERROR\n", &game);
+		ft_exit("Error\n", &game);
 	close(fd_x);
 	close(fd_y);
 	close(fd);
