@@ -23,7 +23,7 @@ static int	valid_move(t_game *game, int col, int line, int pressed_key)
 	{
 		game->player_on_box = 1;
 		game->temp = 'B';
-		return (1);	
+		return (1);
 	}
 	if (game->map[line][col] == 'E' && game->score == 0)
 	{

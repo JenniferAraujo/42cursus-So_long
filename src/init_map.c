@@ -15,8 +15,8 @@
 //transformando o ficheiro .xpm em imagem que pode ser chamada na window
 void	put_images(t_game *game)
 {
-	int len;
-	
+	int	len;
+
 	len = 64;
 	game->img.wall = mlx_xpm_file_to_image(game->mlx, WALL, &len, &len);
 	game->img.player = mlx_xpm_file_to_image(game->mlx, CAT, &len, &len);

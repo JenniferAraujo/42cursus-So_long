@@ -6,23 +6,25 @@
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:53:23 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/03/01 20:07:01 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:20:56 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
+//verifica a quantidade de argumento e se a extensao do mapa e .ber
 void	check_args(t_game *game, int argc, char **argv)
 {
 	if (argc != 2)
 		ft_exit("Error\nInvalid number of argument\n", game);
-	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) -4, ".ber", 4))
+	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".ber", 4))
 	{
 		ft_printf("Error\nFile must be of type \".ber\"\n");
-		exit(0);			
+		exit(0);
 	}
 }
 
+//verifica se o mapa esta rodeado de paredes "1"
 static void	ft_walls(t_game *game)
 {
 	int	i;
@@ -35,15 +37,16 @@ static void	ft_walls(t_game *game)
 		while (game->map[i][c])
 		{
 			if (game->map[0][c] != '1' || game->map[game->line - 1][c] != '1')
-				ft_exit("Error\nThe map is not surrounded by walls", game);
+				ft_exit("The map is not surrounded by walls", game);
 			if (game->map[i][0] != '1' || game->map[i][game->col - 1] != '1')
-				ft_exit("Error\nThe map is not surrounded by walls", game);
+				ft_exit("The map is not surrounded by walls", game);
 			c++;
 		}
 		i++;
 	}
 }
 
+//Verifica se o mapa e retangular
 void	valid_map(t_game *game)
 {
 	int	col;
@@ -63,6 +66,7 @@ void	valid_map(t_game *game)
 	ft_walls(game);
 }
 
+//Verifica os caracteres permitidos do jogo
 static void	check_char(t_game *game, char c, int line, int col)
 {
 	if (c == 'C')
@@ -81,6 +85,8 @@ static void	check_char(t_game *game, char c, int line, int col)
 		ft_exit("Error\nInvalid characters", game);
 }
 
+/*Alem de verificar os caracteres verifica tambem se ha um player e uma 
+saida no jogo e se ha mais de uma saida e um player no jogo*/
 void	check_map(t_game *game)
 {
 	int	line;

@@ -6,17 +6,17 @@
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:49:41 by jenny             #+#    #+#             */
-/*   Updated: 2023/03/01 19:41:27 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/03/02 19:04:53 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../so_long.h"
+#include "../so_long.h"
 
 void	map_malloc_path(t_game *game, int fd)
 {
-	int	i;
+	int		i;
 	char	*c;
-	int y;
+	int		y;
 
 	i = 0;
 	y = game->line + 1;
@@ -25,7 +25,7 @@ void	map_malloc_path(t_game *game, int fd)
 		free_img(game);
 	while (i < y)
 	{
-		c  = get_next_line(fd);
+		c = get_next_line(fd);
 		game->map_floodfill[i] = ft_strtrim(c, "\n");
 		i++;
 		free(c);
@@ -84,9 +84,7 @@ void	valid_path(t_game *game, int fd)
 		close(fd);
 	}
 	else
-	{
 		ft_printf ("Error\nValid path to on the map\n");
-	}	
 	while (i < game->line)
 	{
 		j = 0;
