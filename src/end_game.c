@@ -6,7 +6,7 @@
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:57 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/03/02 19:06:21 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:27:26 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	ft_exit(char *s, t_game *game)
 	ft_printf("Error\nSomething is wrong!\n%s\n", s);
 	if (game->map[0])
 		free_map(game);
-	if (game->map_floodfill[0])
-		free_map(game);
 	exit(0);
 }
 
@@ -52,6 +50,12 @@ void	free_map(t_game *game)
 		i++;
 	}
 	free(game->map);
+}
+
+void	free_map_floodfill(t_game *game)
+{
+	int	i;
+
 	i = 0;
 	while (game->map_floodfill[i])
 	{

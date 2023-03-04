@@ -6,13 +6,12 @@
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:47:30 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/02/24 20:08:48 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/03/03 19:20:19 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-//transformando o ficheiro .xpm em imagem que pode ser chamada na window
 void	put_images(t_game *game)
 {
 	int	len;
@@ -26,7 +25,6 @@ void	put_images(t_game *game)
 	game->img.on_box = mlx_xpm_file_to_image(game->mlx, ON_BOX, &len, &len);
 }
 
-//coloca a imagem de acordo com o caracteres do mapa
 void	put_map(int x, int y, char c, t_game *game)
 {
 	if (c == '1')

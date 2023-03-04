@@ -6,7 +6,7 @@
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:49:41 by jenny             #+#    #+#             */
-/*   Updated: 2023/03/02 19:04:53 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:25:45 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,5 @@ void	valid_path(t_game *game, int fd)
 		free_img(game);
 		close(fd);
 	}
-	else
-		ft_printf ("Error\nValid path to on the map\n");
-	while (i < game->line)
-	{
-		j = 0;
-		while (j < game->col)
-		{
-			ft_printf("%c", game->map_floodfill[i][j]);
-			j++;
-		}
-		i++;
-		ft_printf("\n");
-	}
+	free_map_floodfill(game);
 }

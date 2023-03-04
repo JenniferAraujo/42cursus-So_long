@@ -6,13 +6,12 @@
 /*   By: jede-ara <jede-ara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:53:23 by jede-ara          #+#    #+#             */
-/*   Updated: 2023/03/02 16:20:56 by jede-ara         ###   ########.fr       */
+/*   Updated: 2023/03/03 19:29:42 by jede-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-//verifica a quantidade de argumento e se a extensao do mapa e .ber
 void	check_args(t_game *game, int argc, char **argv)
 {
 	if (argc != 2)
@@ -24,7 +23,6 @@ void	check_args(t_game *game, int argc, char **argv)
 	}
 }
 
-//verifica se o mapa esta rodeado de paredes "1"
 static void	ft_walls(t_game *game)
 {
 	int	i;
@@ -37,16 +35,15 @@ static void	ft_walls(t_game *game)
 		while (game->map[i][c])
 		{
 			if (game->map[0][c] != '1' || game->map[game->line - 1][c] != '1')
-				ft_exit("The map is not surrounded by walls", game);
+				ft_exit("Error\nThe map is not surrounded by walls", game);
 			if (game->map[i][0] != '1' || game->map[i][game->col - 1] != '1')
-				ft_exit("The map is not surrounded by walls", game);
+				ft_exit("Error\nThe map is not surrounded by walls", game);
 			c++;
 		}
 		i++;
 	}
 }
 
-//Verifica se o mapa e retangular
 void	valid_map(t_game *game)
 {
 	int	col;
@@ -66,7 +63,6 @@ void	valid_map(t_game *game)
 	ft_walls(game);
 }
 
-//Verifica os caracteres permitidos do jogo
 static void	check_char(t_game *game, char c, int line, int col)
 {
 	if (c == 'C')
@@ -85,8 +81,6 @@ static void	check_char(t_game *game, char c, int line, int col)
 		ft_exit("Error\nInvalid characters", game);
 }
 
-/*Alem de verificar os caracteres verifica tambem se ha um player e uma 
-saida no jogo e se ha mais de uma saida e um player no jogo*/
 void	check_map(t_game *game)
 {
 	int	line;
@@ -108,9 +102,9 @@ void	check_map(t_game *game)
 	else if (game->exit == 0)
 		ft_exit("Error\nThere's no box", game);
 	else if (game->exit > 1)
-		ft_exit("Error\nOnly one box per map", game);
+		ft_exit("Error\nJust one box per map", game);
 	else if (game->player == 0)
 		ft_exit("Error\nThere's no Mya", game);
 	else if (game->player > 1)
-		ft_exit("Error\nOnly one Mya per map", game);
+		ft_exit("Error\nJust one Mya per map", game);
 }
