@@ -71,11 +71,6 @@ int	floodfill(t_game *game)
 
 void	valid_path(t_game *game, int fd)
 {
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
 	map_malloc_path(game, fd);
 	if (!floodfill(game))
 	{
